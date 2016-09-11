@@ -108,6 +108,7 @@ var clearActivities = function() {
 var disableActivities = function() {
 	var total = 0;
 	
+	// disable select checkboxes depending on which other boxes are checked
 	for (var j = 0; j < activitiesArray.length; j++) {
 		var isChecked = $('.activities').find('input').eq(j).prop('checked');
 		
