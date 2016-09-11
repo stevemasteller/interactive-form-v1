@@ -1,6 +1,13 @@
 
 
+/*****************************************
+*
+******************************************/
+
 var displayJsPunsColors = function() {
+	$('#color').children(':selected').prop('selected', false);
+	$('#color').children('option').eq(0).prop('selected', true);
+	
 	$('#color').children('option').eq(0).removeAttr('style');
 	$('#color').children('option').eq(1).removeAttr('style');
 	$('#color').children('option').eq(2).removeAttr('style');
@@ -10,6 +17,9 @@ var displayJsPunsColors = function() {
 };
 
 var displayHeartJsColors = function() {
+	$('#color').children(':selected').prop('selected', false);
+	$('#color').children('option').eq(3).prop('selected', true);
+	
 	$('#color').children('option').eq(0).attr('style', 'display: none');
 	$('#color').children('option').eq(1).attr('style', 'display: none');
 	$('#color').children('option').eq(2).attr('style', 'display: none');
@@ -18,13 +28,12 @@ var displayHeartJsColors = function() {
 	$('#color').children('option').eq(5).removeAttr('style');
 };
 
-var displayThemeColors = function() {
-	$('#color').children('option').eq(0).removeAttr('style');
-	$('#color').children('option').eq(1).removeAttr('style');
-	$('#color').children('option').eq(2).removeAttr('style');
-	$('#color').children('option').eq(3).removeAttr('style');
-	$('#color').children('option').eq(4).removeAttr('style');
-	$('#color').children('option').eq(5).removeAttr('style');
+var hideColorsSelect = function() {
+	$('#colors-js-puns').children().hide();
+};
+
+var showColorsSelect = function() {
+	$('#colors-js-puns').children().show();
 };
 
 // Event handler for T-Shirt design select element
@@ -33,15 +42,19 @@ $('#design').change( function () {
 	
 	if (selectVal === 'js puns') {
 		displayJsPunsColors();
+		showColorsSelect();
 	} else if (selectVal === 'heart js') {
 		displayHeartJsColors();
+		showColorsSelect();
 	} else {
-		displayThemeColors();
+		hideColorsSelect();
 	}
 });
+
 /*****************************************
 *
 ******************************************/
+
 var addOtherTitleMarkup = function() {
 	$newInput = $('<input id="other-title" placeholder="Your Title">');
 	
@@ -81,7 +94,7 @@ var addTotalMarkup = function(total) {
 	}
 }
 
-var enableActivities = function() {
+var clearActivities = function() {
 	
 	// Set disabled and color of all inputs to enabled 
 	for (var j = 0; j < activitiesArray.length; j++) {
@@ -116,7 +129,7 @@ var disableActivities = function() {
 
 // Event handler for Activities check boxes
 $('.activities').on('click', 'input[type="checkbox"]', function() {
-	enableActivities();
+	clearActivities();
 	disableActivities();
 });
 
@@ -125,3 +138,4 @@ $('.activities').on('click', 'input[type="checkbox"]', function() {
 ******************************************/
 // On load
 $('#name').focus();
+hideColorsSelect();
