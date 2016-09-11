@@ -66,6 +66,21 @@ $('#title').change( function() {
 /*****************************************
 *
 ******************************************/
+
+var removeTotalMarkup = function() {
+	$('.activities').find('H4').remove();
+}
+
+var addTotalMarkup = function(total) {
+	
+	// display total
+	if (total > 0) {
+		newH4 = $('<h4>Total: $' + total + '<h4>');
+		
+		$('.activities').append(newH4);
+	}
+}
+
 var enableActivities = function() {
 	
 	// Set disabled and color of all inputs to enabled 
@@ -74,14 +89,19 @@ var enableActivities = function() {
 		$('.activities').find('label').eq(j).attr('style', 'color: black');
 	}
 	
+	removeTotalMarkup();
 }
 
 var disableActivities = function() {
+	var total = 0;
+	
 	// disable select checboxes depending on which boxes are checked
 	for (var j = 0; j < activitiesArray.length; j++) {
 		var isChecked = $('.activities').find('input').eq(j).prop('checked');
 		
 		if (isChecked) {
+			total += activitiesArray[j].cost;
+			
 			for (var i = 0; i < activitiesArray[j].conflicts.length; i++) {
 				var conflictingActivity = activitiesArray[j].conflicts[i];
 				
@@ -90,6 +110,8 @@ var disableActivities = function() {
 			}
 		}
 	}	
+	
+	addTotalMarkup(total);
 }
 
 // Event handler for Activities check boxes
