@@ -38,30 +38,27 @@ var displayThemeColors = function() {
 	$('#color').children('option').eq(5).removeAttr('style');
 };
 
-// Event handler for T-Shirt design select element
-$('#design').change( function () {
-		var selectVal = $('#design').find(':selected').val();
+var enableDisableActivities = function(index) {
+	var selectChecked = $('.activities').find('input').eq(index).prop('checked');
+	
+	for (var i = 1; i < arguments.length; i++) {
+		$('.activities').find('input').eq(arguments[i]).prop('disabled', selectChecked);
 		
-		alert(selectVal);
-		if (selectVal === 'js puns') {
-			displayJsPunsColors();
-		} else if (selectVal === 'heart js') {
-			displayHeartJsColors();
+		if (selectChecked) {
+			$('.activities').find('label').eq(arguments[i]).attr('style', 'color: rgb(84, 84, 84)');
 		} else {
-			displayThemeColors();
+			$('.activities').find('label').eq(arguments[i]).attr('style', 'color: black');
 		}
-	});
+	}
+}
 
-// Event handler for Job Role title select element
-$('#title').change( function() {
-		var selectedVal = $('#title').find(':selected').val();
-		
-		if (selectedVal === 'other') {
-			addOtherTitleMarkup();
-		} else {
-			removeOtherTitleMarkup();
-		}
-	});
-
+//Event handlers for Workshops
+$('.activities').find('input').eq(1).change(function() {enableDisableActivities(1,3,5)});
+$('.activities').find('input').eq(2).change(function() {enableDisableActivities(2,4,6)});
+$('.activities').find('input').eq(3).change(function() {enableDisableActivities(3,1,5)});
+$('.activities').find('input').eq(4).change(function() {enableDisableActivities(4,2,6)});
+$('.activities').find('input').eq(5).change(function() {enableDisableActivities(5,1,3)});
+$('.activities').find('input').eq(6).change(function() {enableDisableActivities(6,2,4)});
+	
 // On load
 $('#name').focus();
