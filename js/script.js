@@ -58,7 +58,7 @@ $('#design').change( function () {
 var addOtherTitleMarkup = function() {
 	$newInput = $('<input id="other-title" placeholder="Your Title">');
 	
-	$('#title').after($newInput);
+	$('#role').after($newInput);
 };
 
 var removeOtherTitleMarkup = function() {
@@ -66,10 +66,20 @@ var removeOtherTitleMarkup = function() {
 };
 
 // Event handler for Job Role select element
-$('#title').change( function() {
-	var selectedVal = $('#title').find(':selected').val();
+//$('#role').change( function() {
+$('#role').click( function () {
+	var $selectedText = $('#role').find('a').text();
 	
-	if (selectedVal === 'other') {
+	// This is tricky
+	//
+	// With the styled drop down menus there are no longer select
+	// elements to get the data from. I ended up reading all of the
+	// text under #role. If 'other' shows up at the top of the pile
+	// it is a match.
+	//
+	//alert($selectedVal);
+	if ($selectedText.indexOf('Other') === 0) {
+		removeOtherTitleMarkup();
 		addOtherTitleMarkup();
 	} else {
 		removeOtherTitleMarkup();
