@@ -264,11 +264,11 @@ $('#design').change( function () {
 ******************************************/
 
 var hideOtherTitle = function() {
-	$('#other-title').hide();
+	$('#other-div').children().hide();
 };
 
 var showOtherTitle = function() {
-	$('#other-title').show();
+	$('#other-div').children().show();
 };
 
 // Event handler for Job Role select element
@@ -343,7 +343,7 @@ $('.activities').on('click', 'input[type="checkbox"]', function() {
 * On load
 ******************************************/
 $('#name').focus();
-hideOtherTitle();
+//hideOtherTitle();
 hideColorsSelect();
 hidePayPal();
 hideBitCoin();
