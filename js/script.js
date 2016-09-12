@@ -2,12 +2,20 @@
 *
 ******************************************/
 
-var isActivityError = function() {
-	alert('# of activies = ' + $activities.length);
-	var $activities = $('.activities').find('input[type=checkbox]').checked();
+var isActivityCountError = function() {
 	
-	alert('# of activies = ' + $activities.length);
-	if ($activities.length > 0) {
+	var activitiesCount = 0;
+	
+	for (var i = 0; i < activitiesArray.length; i++) {
+		var isChecked = $('.activities').find('input[type="checkbox"]').eq(i).prop('checked');
+		
+		if (isChecked) {
+			activitiesCount++;
+		}
+	}	
+
+	alert('# of activiesCount = ' + activitiesCount);
+	if (activitiesCount.length > 0) {
 		return false;
 	} else {
 		alert('Activity Error');
@@ -45,10 +53,8 @@ var isNameError = function() {
 $('form').on('click', 'button[type="submit"]', function($event) {
 	var isError = isNameError();
 	    isError = isEmailError() || isError;
-		isError = isActivityError() || isError;
-	
-	isActivityError();
-	
+		isError = isActivityCountError() || isError;
+		
 	alert('Submit');
 	if (isError) {
 		$event.preventDefault();
@@ -92,7 +98,6 @@ var selectCreditCard = function() {
 $('#payment').change( function () {
 	var selectedVal = $('#payment').find(':selected').val();
 	
-	alert(selectedVal);
 	if (selectedVal === 'credit card') {
 		hidePayPal();
 		hideBitCoin();
@@ -164,7 +169,7 @@ $('#design').change( function () {
 ******************************************/
 
 var addOtherTitleMarkup = function() {
-	$newInput = $('<input id="other-title" placeholder="Your Title">');
+	var $newInput = $('<input id="other-title" placeholder="Your Title">');
 	
 	$('#title').parent().after($newInput);
 };
@@ -197,9 +202,9 @@ var addTotalMarkup = function(total) {
 	
 	// display total
 	if (total > 0) {
-		newH4 = $('<h4>Total: $' + total + '<h4>');
+		var $newH4 = $('<h4>Total: $' + total + '<h4>');
 		
-		$('.activities').append(newH4);
+		$('.activities').append($newH4);
 	}
 };
 
@@ -219,7 +224,7 @@ var disableActivities = function() {
 	
 	// disable select checkboxes depending on which other boxes are checked
 	for (var j = 0; j < activitiesArray.length; j++) {
-		var isChecked = $('.activities').find('input').eq(j).prop('checked');
+		var isChecked = $('.activities').find('input[type="checkbox"]').eq(j).prop('checked');
 		
 		if (isChecked) {
 			total += activitiesArray[j].cost;
