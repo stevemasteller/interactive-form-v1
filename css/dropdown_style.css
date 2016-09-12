@@ -103,6 +103,7 @@
 	height: auto;
 	}
 	
+/* Determine width of drop down boxes */
 #colors-js-puns .trigger,
 #colors-js-puns .activetrigger {
   width: 315px;
@@ -116,4 +117,14 @@
 #shirt-size .trigger,
 #shirt-size .activetrigger {
   width: 76px;
+}
+
+#role {
+  width: 50%;
+}
+
+#payment,
+#date,
+#year {
+  width: 40%;
 }
