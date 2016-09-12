@@ -2,22 +2,54 @@
 *
 ******************************************/
 
-
-
-var isNameError = function () {
-	var name = $('#name').val();
+var isActivityError = function() {
+	alert('# of activies = ' + $activities.length);
+	var $activities = $('.activities').find('input[type=checkbox]').checked();
 	
-	if (!name.trim()) {
+	alert('# of activies = ' + $activities.length);
+	if ($activities.length > 0) {
+		return false;
+	} else {
+		alert('Activity Error');
+		return true;
+	}
+};
+
+var isEmailError = function() {
+	
+	var emailVal = $('#mail').val();
+	
+	var emailTest = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
+	
+	var isNotError = emailTest.test(emailVal);
+		
+	if (isNotError) {
+		return false;
+	} else {
+		alert('email error');
+		return true;	
+	}
+};
+
+var isNameError = function() {
+	var nameVal = $('#name').val();
+	
+	if (!nameVal.trim()) {
+		alert('name error');
 		return true;
 	} else {
 		return false;
 	}
-}
+};
 
 $('form').on('click', 'button[type="submit"]', function($event) {
 	var isError = isNameError();
+	    isError = isEmailError() || isError;
+		isError = isActivityError() || isError;
 	
-	alert(isError);
+	isActivityError();
+	
+	alert('Submit');
 	if (isError) {
 		$event.preventDefault();
 	} 
