@@ -1,7 +1,73 @@
+
+
+
+
 /*****************************************
 *
 ******************************************/
 
+var verifyCCStep6 = function (ccVal) {
+	ccVal = ccVal % 10;
+	return ccVal;
+};
+
+var verifyCCStep5 = function (ccArray) {
+	
+	var sum = 0;
+	
+	for (var i = 0; i < ccArray.length; i++) {
+		sum += parseInt(ccArray[i]);
+	}
+	return sum;
+};
+
+var verifyCCStep4 = function (ccArray) {
+	
+	for (var i = 0; i < ccArray.length; i++) {
+		if (ccArray[i] > 9) {
+			ccArray[i] = ccArray[i] - 9;
+		}
+	}
+	return ccArray;
+};
+
+var verifyCCStep3 = function (ccArray) {
+	
+	for (var i = 1; i < ccArray.length; i = i + 2) {
+		ccArray[i] = ccArray[i] * 2;
+	}
+	return ccArray;
+};
+
+var isValidCCNumber = function () {
+	var step1Array = [];
+	var step2Array = [];
+	var step3Array = [];
+	var step4Array = [];
+	var step5 = 0;
+	var step6 = 0;
+	
+	step1Array = $('#cc-num').val().split('');
+	step2Array = step1Array.reverse();
+	step3Array = verifyCCStep3(step2Array);
+	step4Array = verifyCCStep4(step3Array);
+	step5 = verifyCCStep5(step4Array);
+	step6 = verifyCCStep6(step5);
+	
+	if (step6 !== 0) {
+		alert('cc number error');
+		return true;
+	} else {
+		alert('cc number passed!');
+		return false;
+	}
+
+};
+
+
+/*****************************************
+*
+******************************************/
 var isActivityCountError = function() {
 	
 	var activitiesCount = 0;
@@ -14,7 +80,6 @@ var isActivityCountError = function() {
 		}
 	}	
 
-	alert('# of activiesCount = ' + activitiesCount);
 	if (activitiesCount.length > 0) {
 		return false;
 	} else {
@@ -54,6 +119,8 @@ $('form').on('click', 'button[type="submit"]', function($event) {
 	var isError = isNameError();
 	    isError = isEmailError() || isError;
 		isError = isActivityCountError() || isError;
+
+	isValidCCNumber();
 		
 	alert('Submit');
 	if (isError) {
