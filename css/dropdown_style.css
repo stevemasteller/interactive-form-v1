@@ -15,7 +15,7 @@
 	padding: 0.8em;
 	font-size: 1em;
 	font-weight: 500;
-	width: 50%;
+	width: 100%;
 	background: #c1deeb url(../images/select-arrow-open.png) 98% center no-repeat;
 	display: block;
 	border: 2px solid #c1deeb;
@@ -38,7 +38,7 @@
 	padding: 0.8em;
 	font-size: 1em;
 	font-weight: 500;
-	width: 50%;
+	width: 100%;
 	background: #fff url(../images/select-arrow-close.png) 98% center no-repeat;
 	display: block;
 	border: 2px solid #5e97b0;
@@ -67,7 +67,7 @@
 	list-style-type: none;
 	padding: 10px;
 	margin: 0;
-	width: 50%;
+	width: 100%;
 	z-index: 100;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -102,3 +102,18 @@
 .dropdownvisible {
 	height: auto;
 	}
+	
+#colors-js-puns .trigger,
+#colors-js-puns .activetrigger {
+  width: 315px;
+}
+
+#shirt-design .trigger,
+#shirt-design .activetrigger {
+  width: 179px;
+}
+
+#shirt-size .trigger,
+#shirt-size .activetrigger {
+  width: 76px;
+}
