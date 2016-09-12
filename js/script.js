@@ -5,8 +5,8 @@
 ******************************************/
 
 var displayJsPunsColors = function() {
-	$('#color').children(':selected').prop('selected', false);
-	$('#color').children('option').eq(0).prop('selected', true);
+//	$('#color').children(':selected').prop('selected', false);
+//	$('#color').children('option').eq(0).prop('selected', true);
 	
 	$('#color').children('option').eq(0).removeAttr('style');
 	$('#color').children('option').eq(1).removeAttr('style');
@@ -17,8 +17,8 @@ var displayJsPunsColors = function() {
 };
 
 var displayHeartJsColors = function() {
-	$('#color').children(':selected').prop('selected', false);
-	$('#color').children('option').eq(3).prop('selected', true);
+//	$('#color').children(':selected').prop('selected', false);
+//	$('#color').children('option').eq(3).prop('selected', true);
 	
 	$('#color').children('option').eq(0).attr('style', 'display: none');
 	$('#color').children('option').eq(1).attr('style', 'display: none');
@@ -37,14 +37,15 @@ var showColorsSelect = function() {
 };
 
 // Event handler for T-Shirt design select element
-$('#design').change( function () {
-	var selectVal = $('#design').find(':selected').val();
+$('#design').click( function () {
+	var selectText = $('#design').find('a').first().text();
 	
-	if (selectVal === 'js puns') {
-		displayJsPunsColors();
+	alert(sectText);
+	if (selectText === 'js puns') {
+//		displayJsPunsColors();
 		showColorsSelect();
-	} else if (selectVal === 'heart js') {
-		displayHeartJsColors();
+	} else if (selectText === 'heart js') {
+//		displayHeartJsColors();
 		showColorsSelect();
 	} else {
 		hideColorsSelect();
@@ -66,19 +67,11 @@ var removeOtherTitleMarkup = function() {
 };
 
 // Event handler for Job Role select element
-//$('#role').change( function() {
 $('#role').click( function () {
-	var $selectedText = $('#role').find('a').text();
 	
-	// This is tricky
-	//
-	// With the styled drop down menus there are no longer select
-	// elements to get the data from. I ended up reading all of the
-	// text under #role. If 'other' shows up at the top of the pile
-	// it is a match.
-	//
-	//alert($selectedVal);
-	if ($selectedText.indexOf('Other') === 0) {
+	var selectedText = $('#role').find('a').first().text();
+	
+	if (selectedText === 'Other') {
 		removeOtherTitleMarkup();
 		addOtherTitleMarkup();
 	} else {
