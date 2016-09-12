@@ -6,12 +6,7 @@
 *
 ******************************************/
 
-var verifyCCStep6 = function (ccVal) {
-	ccVal = ccVal % 10;
-	return ccVal;
-};
-
-var verifyCCStep5 = function (ccArray) {
+var verifyCCStep4 = function (ccArray) {
 	
 	var sum = 0;
 	
@@ -21,9 +16,11 @@ var verifyCCStep5 = function (ccArray) {
 	return sum;
 };
 
-var verifyCCStep4 = function (ccArray) {
+var verifyCCStep3 = function (ccArray) {
 	
-	for (var i = 0; i < ccArray.length; i++) {
+	for (var i = 1; i < ccArray.length; i = i + 2) {
+		ccArray[i] = ccArray[i] * 2;
+		
 		if (ccArray[i] > 9) {
 			ccArray[i] = ccArray[i] - 9;
 		}
@@ -31,30 +28,31 @@ var verifyCCStep4 = function (ccArray) {
 	return ccArray;
 };
 
-var verifyCCStep3 = function (ccArray) {
-	
-	for (var i = 1; i < ccArray.length; i = i + 2) {
-		ccArray[i] = ccArray[i] * 2;
-	}
-	return ccArray;
-};
-
 var isValidCCNumber = function () {
+	var step0 = 0;
 	var step1Array = [];
 	var step2Array = [];
 	var step3Array = [];
-	var step4Array = [];
+	var step4 = 0;
 	var step5 = 0;
-	var step6 = 0;
+	
+	step0 = $('#cc-num').val()
+	
+	if (!step0.trim()) {
+		alert('cc number error');
+		return true;
+	} else if (step0 == 0) {
+		alert('cc number error');
+		return true;
+	}
 	
 	step1Array = $('#cc-num').val().split('');
 	step2Array = step1Array.reverse();
 	step3Array = verifyCCStep3(step2Array);
-	step4Array = verifyCCStep4(step3Array);
-	step5 = verifyCCStep5(step4Array);
-	step6 = verifyCCStep6(step5);
+	step4 = verifyCCStep4(step3Array);
+	step5 = step4 % 10;;
 	
-	if (step6 !== 0) {
+	if (step5 !== 0) {
 		alert('cc number error');
 		return true;
 	} else {
