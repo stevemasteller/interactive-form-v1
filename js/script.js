@@ -5,6 +5,26 @@
 /*****************************************
 *
 ******************************************/
+var clearDisplayErrors = function() {
+	$('#cvv').attr('style', 'background: #c1deeb');
+	$('#zip').attr('style', 'background: #c1deeb');
+	$('#cc-num').attr('style', 'background: #c1deeb');
+	$('#payment').attr('style', 'background: #c1deeb');
+	$('#name').attr('style', 'background: #c1deeb');
+	$('#mail').attr('style', 'background: #c1deeb');
+	$('.activities').find('input[type="checkbox"]').attr('style','background: #c1deeb');
+	
+	$('p.error').remove();
+};
+
+var displayCVVError = function() {
+	$('#cvv').attr('style', 'background: #faffbd');
+	
+	var $newP = $('<p class="error">CVV Required<p>');
+	
+	$('#cvv').after($newP);
+};
+
 var displayZipCodeError = function() {
 	$('#zip').attr('style', 'background: #faffbd');
 	
@@ -125,14 +145,14 @@ var isZipCodeError = function() {
 	}
  };
 
-var isVerificationCodeError = function() {
+var isCVVError = function() {
 	
     var verificationCode = $('#zip').val();
     var verificationCodeRegex = /^\d{3}$/;
 
     if (!verificationCodeRegex.test(verificationCode))
     {
-        alert('verification code error');
+        displayCVVError();
 		return true;
     } else {
 		return false;
@@ -202,6 +222,8 @@ $('form').on('click', 'button[type="submit"]', function($event) {
 	var selectedPaymentValue = $('#payment').find(':selected').val();
 	var isError;
 	
+	clearDisplayErrors();
+	
 	isError = isNameError();
 	isError = isEmailError() || isError;
 	isError = isActivityCountError() || isError;
@@ -210,7 +232,7 @@ $('form').on('click', 'button[type="submit"]', function($event) {
 	if (selectedPaymentValue === 'credit card') {
 		isError = isCCNumberError() || isError;
 		isError = isZipCodeError() || isError;
-		isError = isVerificationCodeError() || isError;
+		isError = isCVVError() || isError;
 	}
 		
 	if (isError) {
