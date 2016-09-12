@@ -5,6 +5,14 @@
 /*****************************************
 *
 ******************************************/
+var displayZipCodeError = function() {
+	$('#zip').attr('style', 'background: #faffbd');
+	
+	var $newP = $('<p class="error">Required ##### or #####-####<p>');
+	
+	$('#zip').after($newP);
+};
+
 var displayCCNumberError = function() {
 	$('#cc-num').attr('style', 'background: #faffbd');
 	
@@ -110,7 +118,7 @@ var isZipCodeError = function() {
 
     if (!zipCodeRegex.test(zipCode))
     {
-        alert('zipcode error');
+        displayZipCodeError();
 		return true;
     } else {
 		return false;
