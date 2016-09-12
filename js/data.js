@@ -15,32 +15,32 @@ var activitiesArray = [
 },
 {
 	activity: FRAMEWORKS_WORKSHOP,
-	conflicts: [EXPRESS_WORKSHOP, BUILD_TOOLS_WORKSHOP],
+	conflicts: [EXPRESS_WORKSHOP],
 	cost: 100,
 },
 {
 	activity: LIBRARIES_WORKSHOP,
-	conflicts: [NODE_JS_WORKSHOP, NPM_WORKSHOP],
+	conflicts: [NODE_JS_WORKSHOP],
 	cost: 100,
 },
 {
 	activity: EXPRESS_WORKSHOP,
-	conflicts: [FRAMEWORKS_WORKSHOP, BUILD_TOOLS_WORKSHOP],
+	conflicts: [FRAMEWORKS_WORKSHOP],
 	cost: 100,
 },
 {
 	activity: NODE_JS_WORKSHOP,
-	conflicts: [LIBRARIES_WORKSHOP, NPM_WORKSHOP],
+	conflicts: [LIBRARIES_WORKSHOP],
 	cost: 100,
 },
 {
 	activity: BUILD_TOOLS_WORKSHOP,
-	conflicts: [FRAMEWORKS_WORKSHOP, EXPRESS_WORKSHOP],
+	conflicts: [],
 	cost: 100,
 },
 {
 	activity: NPM_WORKSHOP,
-	conflicts: [LIBRARIES_WORKSHOP, NODE_JS_WORKSHOP],
+	conflicts: [],
 	cost: 100,
 },
 ]
