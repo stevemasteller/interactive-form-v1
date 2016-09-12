@@ -37,7 +37,7 @@ var showColorsSelect = function() {
 };
 
 // Event handler for T-Shirt design select element
-$('#design').click( function () {
+$('#shirt-design').click( function () {
 	var selectText = $('#design').find('a').first().text();
 	
 	alert(sectText);
@@ -59,7 +59,7 @@ $('#design').click( function () {
 var addOtherTitleMarkup = function() {
 	$newInput = $('<input id="other-title" placeholder="Your Title">');
 	
-	$('#role').after($newInput);
+	$('#title').parent().after($newInput);
 };
 
 var removeOtherTitleMarkup = function() {
@@ -67,11 +67,11 @@ var removeOtherTitleMarkup = function() {
 };
 
 // Event handler for Job Role select element
-$('#role').click( function () {
+$('#title').change( function () {
 	
-	var selectedText = $('#role').find('a').first().text();
+	var selectedVal = $('#title').find(':selected').val();
 	
-	if (selectedText === 'Other') {
+	if (selectedVal === 'other') {
 		removeOtherTitleMarkup();
 		addOtherTitleMarkup();
 	} else {
