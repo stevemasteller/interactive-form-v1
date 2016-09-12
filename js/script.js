@@ -28,7 +28,7 @@ var verifyCCStep3 = function (ccArray) {
 	return ccArray;
 };
 
-var isValidCCNumber = function () {
+var isCCNumberError = function () {
 	var step0 = 0;
 	var step1Array = [];
 	var step2Array = [];
@@ -56,16 +56,38 @@ var isValidCCNumber = function () {
 		alert('cc number error');
 		return true;
 	} else {
-		alert('cc number passed!');
 		return false;
 	}
-
 };
 
+var isZipCodeError = function() {
+	
+    var zipCode = $('#zip').val();
+    var zipCodeRegex = /^\d{5}(-\d{4})?$/;
 
-/*****************************************
-*
-******************************************/
+    if (!zipCodeRegex.test(zipCode))
+    {
+        alert('zipcode error');
+		return true;
+    } else {
+		return false;
+	}
+ };
+
+var isVerificationCodeError = function() {
+	
+    var verificationCode = $('#zip').val();
+    var verificationCodeRegex = /^\d{3}$/;
+
+    if (!verificationCodeRegex.test(verificationCode))
+    {
+        alert('verification code error');
+		return true;
+    } else {
+		return false;
+	}
+ };
+
 var isActivityCountError = function() {
 	
 	var activitiesCount = 0;
@@ -114,11 +136,19 @@ var isNameError = function() {
 };
 
 $('form').on('click', 'button[type="submit"]', function($event) {
-	var isError = isNameError();
-	    isError = isEmailError() || isError;
-		isError = isActivityCountError() || isError;
+	
+	var selectedPaymentValue = $('#payment').find(':selected').val();
+	var isError;
+	
+	isError = isNameError();
+	isError = isEmailError() || isError;
+	isError = isActivityCountError() || isError;
 
-	isValidCCNumber();
+	if (selectedPaymentValue === 'credit card') {
+		isError = isCCNumberError() || isError;
+		isError = isZipCodeError() || isError;
+		isError = isVerificationCodeError() || isError;
+	}
 		
 	alert('Submit');
 	if (isError) {
@@ -233,14 +263,12 @@ $('#design').change( function () {
 *
 ******************************************/
 
-var addOtherTitleMarkup = function() {
-	var $newInput = $('<input id="other-title" placeholder="Your Title">');
-	
-	$('#title').parent().after($newInput);
+var hideOtherTitle = function() {
+	$('#other-title').hide();
 };
 
-var removeOtherTitleMarkup = function() {
-	$('#other-title').remove();
+var showOtherTitle = function() {
+	$('#other-title').show();
 };
 
 // Event handler for Job Role select element
@@ -248,10 +276,9 @@ $('#title').change( function () {
 	var selectedVal = $('#title').find(':selected').val();
 	
 	if (selectedVal === 'other') {
-		removeOtherTitleMarkup();
-		addOtherTitleMarkup();
+		showOtherTitle();
 	} else {
-		removeOtherTitleMarkup();
+		hideOtherTitle();
 	}
 });
 	
@@ -316,6 +343,7 @@ $('.activities').on('click', 'input[type="checkbox"]', function() {
 * On load
 ******************************************/
 $('#name').focus();
+hideOtherTitle();
 hideColorsSelect();
 hidePayPal();
 hideBitCoin();
