@@ -1,12 +1,88 @@
+/*****************************************
+*
+******************************************/
 
+
+
+var isNameError = function () {
+	var name = $('#name').val();
+	
+	if (!name.trim()) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+$('form').on('click', 'button[type="submit"]', function($event) {
+	var isError = isNameError();
+	
+	alert(isError);
+	if (isError) {
+		$event.preventDefault();
+	} 
+});
+
+/*****************************************
+*
+******************************************/
+
+var hideCreditCard = function() {
+	$('#credit-card').hide();
+};
+
+var showCreditCard = function() {
+	$('#credit-card').show();
+};
+
+var hidePayPal = function() {
+	$("#payment").parents().find('p').first().hide();
+};
+
+var showPayPal = function() {
+	$("#payment").parents().find('p').first().show();
+};
+
+var hideBitCoin = function() {
+	$("#payment").parents().find('p').last().hide();	
+};
+
+var showBitCoin = function() {
+	$("#payment").parents().find('p').last().show();	
+};
+
+var selectCreditCard = function() {
+	$('#payment').find(':selected').prop('selected', false);
+	$('#payment').children('option').eq(1).prop('selected', true);
+};
+	
+// Event handler for Payment Information
+$('#payment').change( function () {
+	var selectedVal = $('#payment').find(':selected').val();
+	
+	alert(selectedVal);
+	if (selectedVal === 'credit card') {
+		hidePayPal();
+		hideBitCoin();
+		showCreditCard();
+	} else if (selectedVal === 'paypal') {
+		hideCreditCard();
+		hideBitCoin();
+		showPayPal();
+	} else {
+		hideCreditCard();
+		hidePayPal();
+		showBitCoin();
+	}
+});
 
 /*****************************************
 *
 ******************************************/
 
 var displayJsPunsColors = function() {
-//	$('#color').children(':selected').prop('selected', false);
-//	$('#color').children('option').eq(0).prop('selected', true);
+	$('#color').children(':selected').prop('selected', false);
+	$('#color').children('option').eq(0).prop('selected', true);
 	
 	$('#color').children('option').eq(0).removeAttr('style');
 	$('#color').children('option').eq(1).removeAttr('style');
@@ -17,8 +93,8 @@ var displayJsPunsColors = function() {
 };
 
 var displayHeartJsColors = function() {
-//	$('#color').children(':selected').prop('selected', false);
-//	$('#color').children('option').eq(3).prop('selected', true);
+	$('#color').children(':selected').prop('selected', false);
+	$('#color').children('option').eq(3).prop('selected', true);
 	
 	$('#color').children('option').eq(0).attr('style', 'display: none');
 	$('#color').children('option').eq(1).attr('style', 'display: none');
@@ -37,15 +113,14 @@ var showColorsSelect = function() {
 };
 
 // Event handler for T-Shirt design select element
-$('#shirt-design').click( function () {
-	var selectText = $('#design').find('a').first().text();
+$('#design').change( function () {
+	var selectedVal = $('#design').find(':selected').val();
 	
-	alert(sectText);
-	if (selectText === 'js puns') {
-//		displayJsPunsColors();
+	if (selectedVal === 'js puns') {
+		displayJsPunsColors();
 		showColorsSelect();
-	} else if (selectText === 'heart js') {
-//		displayHeartJsColors();
+	} else if (selectedVal === 'heart js') {
+		displayHeartJsColors();
 		showColorsSelect();
 	} else {
 		hideColorsSelect();
@@ -68,7 +143,6 @@ var removeOtherTitleMarkup = function() {
 
 // Event handler for Job Role select element
 $('#title').change( function () {
-	
 	var selectedVal = $('#title').find(':selected').val();
 	
 	if (selectedVal === 'other') {
@@ -85,7 +159,7 @@ $('#title').change( function () {
 
 var removeTotalMarkup = function() {
 	$('.activities').find('H4').remove();
-}
+};
 
 var addTotalMarkup = function(total) {
 	
@@ -95,7 +169,7 @@ var addTotalMarkup = function(total) {
 		
 		$('.activities').append(newH4);
 	}
-}
+};
 
 var clearActivities = function() {
 	
@@ -106,7 +180,7 @@ var clearActivities = function() {
 	}
 	
 	removeTotalMarkup();
-}
+};
 
 var disableActivities = function() {
 	var total = 0;
@@ -128,7 +202,7 @@ var disableActivities = function() {
 	}	
 	
 	addTotalMarkup(total);
-}
+};
 
 // Event handler for Activities check boxes
 $('.activities').on('click', 'input[type="checkbox"]', function() {
@@ -137,8 +211,11 @@ $('.activities').on('click', 'input[type="checkbox"]', function() {
 });
 
 /*****************************************
-*
+* On load
 ******************************************/
-// On load
 $('#name').focus();
-//hideColorsSelect();
+hideColorsSelect();
+hidePayPal();
+hideBitCoin();
+selectCreditCard();
+
