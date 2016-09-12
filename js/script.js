@@ -138,4 +138,4 @@ $('.activities').on('click', 'input[type="checkbox"]', function() {
 ******************************************/
 // On load
 $('#name').focus();
-hideColorsSelect();
+//hideColorsSelect();

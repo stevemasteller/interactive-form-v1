@@ -35,6 +35,7 @@ a {
   padding: .8em;
   font-weight: 500;
   text-decoration: none;
+  width: 100px;
 }
 
 /* ================================= 
@@ -130,7 +131,7 @@ button:hover {
 	max-width: 680px;
 }
 
-.shirt div {
+.shirt div.shirt {
 	float: left;
 	margin-right: 0.85em;
 }
