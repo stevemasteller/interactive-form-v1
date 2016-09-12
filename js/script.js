@@ -5,6 +5,22 @@
 /*****************************************
 *
 ******************************************/
+var displayCCNumberError = function() {
+	$('#cc-num').attr('style', 'background: #faffbd');
+	
+	var $newP = $('<p class="error">Credit card number invalid<p>');
+	
+	$('#cc-num').after($newP);
+};
+
+var displayPaymentMethodError = function() {
+	$('#payment').attr('style', 'background: #faffbd');
+	
+	var $newP = $('<p class="error">Select payment method<p>');
+	
+	$('#payment').after($newP);
+};
+
 var displayNameError = function() {
 	$('#name').attr('style', 'background: #faffbd');
 	
@@ -26,7 +42,6 @@ var displayActivityError = function() {
 
 	var $newP = $('<p class="error">Select at least one activity<p>');
 	
-//	$('div.hook').append($newP);
 	$('.activities').find('legend').after($newP);
 };
 
@@ -67,10 +82,10 @@ var isCCNumberError = function () {
 	step0 = $('#cc-num').val();
 	
 	if (!step0.trim()) {
-		alert('cc number error');
+		displayCCNumberError();
 		return true;
 	} else if (step0 == 0) {
-		alert('cc number error');
+		displayCCNumberError();
 		return true;
 	}
 	
@@ -81,7 +96,7 @@ var isCCNumberError = function () {
 	step5 = step4 % 10;
 	
 	if (step5 !== 0) {
-		alert('cc number error');
+		displayCCNumberError();
 		return true;
 	} else {
 		return false;
@@ -163,6 +178,17 @@ var isNameError = function() {
 	}
 };
 
+var isPaymentMethodError = function() {
+	var selectedPaymentMethodValue = $('#payment').find(':selected').val();
+	
+	if (selectedPaymentMethodValue === 'select_method') {
+		displayPaymentMethodError();
+		return true;
+	} else {
+		return false;
+	}
+}
+
 $('form').on('click', 'button[type="submit"]', function($event) {
 	
 	var selectedPaymentValue = $('#payment').find(':selected').val();
@@ -171,6 +197,7 @@ $('form').on('click', 'button[type="submit"]', function($event) {
 	isError = isNameError();
 	isError = isEmailError() || isError;
 	isError = isActivityCountError() || isError;
+	isError = isPaymentMethodError() || isError;
 
 	if (selectedPaymentValue === 'credit card') {
 		isError = isCCNumberError() || isError;
@@ -178,7 +205,6 @@ $('form').on('click', 'button[type="submit"]', function($event) {
 		isError = isVerificationCodeError() || isError;
 	}
 		
-	alert('Submit');
 	if (isError) {
 		$event.preventDefault();
 	} 
@@ -215,6 +241,9 @@ var showBitCoin = function() {
 var selectCreditCard = function() {
 	$('#payment').find(':selected').prop('selected', false);
 	$('#payment').children('option').eq(1).prop('selected', true);
+	showCreditCard();
+	hidePayPal();
+	hideBitCoin();
 };
 	
 // Event handler for Payment Information
@@ -229,10 +258,14 @@ $('#payment').change( function () {
 		hideCreditCard();
 		hideBitCoin();
 		showPayPal();
-	} else {
+	} else if (selectedVal === 'bitcoin') {
 		hideCreditCard();
 		hidePayPal();
 		showBitCoin();
+	} else {
+		hideCreditCard();
+		hidePayPal();
+		hideBitCoin();
 	}
 });
 
