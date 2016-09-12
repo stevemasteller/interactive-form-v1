@@ -14,9 +14,9 @@ select {
 }
 
 body {
-  font: 1em/1.5;
+  font: 1em;
   color: #184f68;
-	background: #accbd9;
+  background: #accbd9;
 }
 
 header {
@@ -141,6 +141,15 @@ button:hover {
 
 .credit-card {
 	margin-top: 1.25em;
+}
+
+/* ================================= 
+  Error Messages
+==================================== */
+
+.error {
+	color: red; 
+	margin-top: -1.125em;
 }
 
 /* ================================= 

@@ -5,6 +5,34 @@
 /*****************************************
 *
 ******************************************/
+var displayNameError = function() {
+	$('#name').attr('style', 'background: #faffbd');
+	
+	var $newP = $('<p class="error">Name required<p>');
+	
+	$('#name').after($newP);
+};
+
+var displayEmailError = function() {
+	$('#mail').attr('style', 'background: #faffbd');
+	
+	var $newP = $('<p class="error">Valid email required<p>');
+	
+	$('#mail').after($newP);	
+}
+
+var displayActivityError = function() {
+	$('.activities').find('input[type="checkbox"]').attr('style','background: #faffbd');
+
+	var $newP = $('<p class="error">Select at least one activity<p>');
+	
+//	$('div.hook').append($newP);
+	$('.activities').find('legend').after($newP);
+};
+
+/*****************************************
+*
+******************************************/
 
 var verifyCCStep4 = function (ccArray) {
 	
@@ -103,7 +131,7 @@ var isActivityCountError = function() {
 	if (activitiesCount.length > 0) {
 		return false;
 	} else {
-		alert('Activity Error');
+		displayActivityError();
 		return true;
 	}
 };
@@ -119,7 +147,7 @@ var isEmailError = function() {
 	if (isNotError) {
 		return false;
 	} else {
-		alert('email error');
+		displayEmailError();
 		return true;	
 	}
 };
@@ -128,7 +156,7 @@ var isNameError = function() {
 	var nameVal = $('#name').val();
 	
 	if (!nameVal.trim()) {
-		alert('name error');
+		displayNameError();
 		return true;
 	} else {
 		return false;
@@ -348,4 +376,3 @@ hideColorsSelect();
 hidePayPal();
 hideBitCoin();
 selectCreditCard();
-
