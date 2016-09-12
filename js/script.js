@@ -36,7 +36,7 @@ var isCCNumberError = function () {
 	var step4 = 0;
 	var step5 = 0;
 	
-	step0 = $('#cc-num').val()
+	step0 = $('#cc-num').val();
 	
 	if (!step0.trim()) {
 		alert('cc number error');
@@ -50,7 +50,7 @@ var isCCNumberError = function () {
 	step2Array = step1Array.reverse();
 	step3Array = verifyCCStep3(step2Array);
 	step4 = verifyCCStep4(step3Array);
-	step5 = step4 % 10;;
+	step5 = step4 % 10;
 	
 	if (step5 !== 0) {
 		alert('cc number error');
@@ -343,7 +343,7 @@ $('.activities').on('click', 'input[type="checkbox"]', function() {
 * On load
 ******************************************/
 $('#name').focus();
-//hideOtherTitle();
+hideOtherTitle();
 hideColorsSelect();
 hidePayPal();
 hideBitCoin();
