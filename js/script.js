@@ -3,8 +3,9 @@
 
 
 /*****************************************
-*
+* Display error messages
 ******************************************/
+
 var clearDisplayErrors = function() {
 	$('p.error').remove();
 };
@@ -52,7 +53,7 @@ var displayActivityError = function() {
 };
 
 /*****************************************
-*
+* Verify valid input fields
 ******************************************/
 
 var verifyCCStep4 = function (ccArray) {
@@ -196,24 +197,29 @@ var isPaymentMethodError = function() {
 	}
 };
 
+// Event handler for form submit input verification
 $('form').on('click', 'button[type="submit"]', function($event) {
 	
-	var selectedPaymentValue = $('#payment').find(':selected').val();
+	var selectedPaymentValue = $('#payment').find(':selected').val(); // get payment method
 	var isError;
 	
 	clearDisplayErrors();
 	
+	// wrote the isXxxError checks like this with checks on the left of the || operator
+	//	to insure all error checks run
 	isError = isNameError();
 	isError = isEmailError() || isError;
 	isError = isActivityCountError() || isError;
 	isError = isPaymentMethodError() || isError;
 
+	// don't check for credit card errors unless it is the payment method selected
 	if (selectedPaymentValue === 'credit card') {
 		isError = isCCNumberError() || isError;
 		isError = isZipCodeError() || isError;
 		isError = isCVVError() || isError;
 	}
 		
+	// if there is an error don't submit the form
 	if (isError) {
 		$event.preventDefault();
 	} 
