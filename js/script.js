@@ -56,6 +56,7 @@ var displayActivityError = function() {
 * Verify valid input fields
 ******************************************/
 
+// sum the results, parseInt since split from text
 var verifyCCStep4 = function (ccArray) {
 	
 	var sum = 0;
@@ -66,6 +67,7 @@ var verifyCCStep4 = function (ccArray) {
 	return sum;
 };
 
+// multiply even numbers by 2 subtract 9 from numbers > 9
 var verifyCCStep3 = function (ccArray) {
 	
 	for (var i = 1; i < ccArray.length; i = i + 2) {
@@ -78,6 +80,22 @@ var verifyCCStep3 = function (ccArray) {
 	return ccArray;
 };
 
+// Verify a valid credit card number has been entered
+//
+//  To verify (from Wikipedia):
+//
+//	From the rightmost digit, which is the check digit, moving left, 
+//	double the value of every second digit; if the product of this 
+//	doubling operation is greater than 9 (e.g., 8 × 2 = 16), then sum 
+//	the digits of the products (e.g., 16: 1 + 6 = 7, 18: 1 + 8 = 9) or 
+//	alternatively subtract 9 from the product (e.g., 16: 16 - 9 = 7, 18: 18 - 9 = 9).
+//	Take the sum of all the digits. If the total modulo 10 is equal to 0 
+//	(if the total ends in zero) then the number is valid according to the 
+//	Luhn formula; else it is not valid.
+//
+//  fake but correctly formulated numbers found at 
+//		http://www.freeformatter.com/credit-card-number-generator-validator.html
+//		for testing purposes
 var isCCNumberError = function () {
 	var step0 = 0;
 	var step1Array = [];
@@ -86,111 +104,126 @@ var isCCNumberError = function () {
 	var step4 = 0;
 	var step5 = 0;
 	
-	step0 = $('#cc-num').val();
+	step0 = $('#cc-num').val();	// get the credit card number entered
 	
-	if (!step0.trim()) {
-		displayCCNumberError();
+	if (!step0.trim()) {		// check for an empty string
+		displayCCNumberError();	// display error message
 		return true;
-	} else if (step0 == 0) {
-		displayCCNumberError();
+	} else if (step0 == 0) {	// check for a value of 0, (which passes the test otherwise)
+		displayCCNumberError();	// display error message
 		return true;
 	}
 	
-	step1Array = $('#cc-num').val().split('');
-	step2Array = step1Array.reverse();
-	step3Array = verifyCCStep3(step2Array);
-	step4 = verifyCCStep4(step3Array);
-	step5 = step4 % 10;
+	step1Array = $('#cc-num').val().split(''); // convert the input text string to an array of numbers
+	step2Array = step1Array.reverse();		   // reverse the array, this is just conceptually easier than counting down
+	step3Array = verifyCCStep3(step2Array);    // multiply even numbers by 2, subtract 9 from numbers >= 10
+	step4 = verifyCCStep4(step3Array);		   // some the result
+	step5 = step4 % 10;						   // get the sum modulus 10
 	
-	if (step5 !== 0) {
-		displayCCNumberError();
+	if (step5 !== 0) {						   // if the result is 0 it passed
+		displayCCNumberError();		// display error message
 		return true;
 	} else {
 		return false;
 	}
 };
 
+// check to see if a valid zip code has been entered
+//		valid:  #####	or  #####-####
+//		ex		12345
+//		ex					12345-6789
 var isZipCodeError = function() {
 	
-    var zipCode = $('#zip').val();
-    var zipCodeRegex = /^\d{5}(-\d{4})?$/;
+    var zipCode = $('#zip').val();			// get the zip code entered
+    var zipCodeRegex = /^\d{5}(-\d{4})?$/;	// Regex to verify input
 
-    if (!zipCodeRegex.test(zipCode))
+    if (!zipCodeRegex.test(zipCode))	// perform test
     {
-        displayZipCodeError();
+        displayZipCodeError();	// on error display message
 		return true;
     } else {
 		return false;
 	}
  };
 
+ // check to see if a valid CVV code has been entered
+ // 	valid:  ###
+ //     ex:     123
 var isCVVError = function() {
 	
-    var verificationCode = $('#cvv').val();
-    var verificationCodeRegex = /^\d{3}$/;
+    var verificationCode = $('#cvv').val(); // get the code entered
+    var verificationCodeRegex = /^\d{3}$/;	// Regex to verify 3 numbers
 
-    if (!verificationCodeRegex.test(verificationCode))
+    if (!verificationCodeRegex.test(verificationCode)) //do the test
     {
-        displayCVVError();
+        displayCVVError();	// on error display message
 		return true;
     } else {
 		return false;
 	}
  };
 
+ // Check to see that at least one activity was selected
 var isActivityCountError = function() {
 	
 	var activitiesCount = 0;
 	var isChecked;
 	
+	// cycle through all activities in the activitiesArray initialized in data.js
 	for (var i = 0; i < activitiesArray.length; i++) {
-		isChecked = $('.activities').find('input[type="checkbox"]').eq(i).prop('checked');
+		isChecked = $('.activities').find('input[type="checkbox"]').eq(i).prop('checked'); // see if activity is selected
 		
+		// if selected add it to the counter
 		if (isChecked) {
 			activitiesCount++;
 		}
 	}	
 
+	// test for at least one activity
 	if (activitiesCount > 0) {
 		return false;
 	} else {
-		displayActivityError();
+		displayActivityError();	// on error display message
 		return true;
 	}
 };
 
+// check to see if a valid email address has been entered
 var isEmailError = function() {
 	
-	var emailVal = $('#mail').val();
+	var emailVal = $('#mail').val();	// get email value
 	
+	// Regex test from http://emailregex.com/
 	var emailTest = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
 	
-	var isNotError = emailTest.test(emailVal);
+	var isNotError = emailTest.test(emailVal); // perform the test
 		
 	if (isNotError) {
 		return false;
 	} else {
-		displayEmailError();
+		displayEmailError(); // on error display message
 		return true;	
 	}
 };
 
+// check to see if a name has been entered
 var isNameError = function() {
 	var nameVal = $('#name').val();
 	
-	if (!nameVal.trim()) {
-		displayNameError();
+	if (!nameVal.trim()) {	// don't count spaces
+		displayNameError();	// on error display message
 		return true;
 	} else {
 		return false;
 	}
 };
 
+// Check to see if no payment method is selected
 var isPaymentMethodError = function() {
 	var selectedPaymentMethodValue = $('#payment').find(':selected').val();
 	
 	if (selectedPaymentMethodValue === 'select_method') {
-		displayPaymentMethodError();
+		displayPaymentMethodError();	// on error display message
 		return true;
 	} else {
 		return false;
@@ -205,6 +238,7 @@ $('form').on('click', 'button[type="submit"]', function($event) {
 	
 	clearDisplayErrors();
 	
+	// Or all the isXXXError(s) together to get a single true/false for an error occured  
 	// wrote the isXxxError checks like this with checks on the left of the || operator
 	//	to insure all error checks run
 	isError = isNameError();
