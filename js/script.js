@@ -220,9 +220,10 @@ $('form').on('click', 'button[type="submit"]', function($event) {
 });
 
 /*****************************************
-*
+* Payment section
 ******************************************/
 
+// hide/show appropriate section
 var hideCreditCard = function() {
 	$('#credit-card').hide();
 };
@@ -232,7 +233,7 @@ var showCreditCard = function() {
 };
 
 var hidePayPal = function() {
-	$("#payment").parents().find('p:not(.error)').first().hide();
+	$("#payment").parents().find('p:not(.error)').first().hide(); // make sur not to select error message p
 };
 
 var showPayPal = function() {
@@ -247,31 +248,32 @@ var showBitCoin = function() {
 	$("#payment").parents().find('p:not(.error)').last().show();	
 };
 
+// function only run on-load
 var selectCreditCard = function() {
-	$('#payment').find(':selected').prop('selected', false);
-	$('#payment').children('option').eq(1).prop('selected', true);
-	showCreditCard();
-	hidePayPal();
+	$('#payment').find(':selected').prop('selected', false);		// unselect default
+	$('#payment').children('option').eq(1).prop('selected', true);  // select credit card for payment method
+	showCreditCard();	// display credit card info
+	hidePayPal();		// hide the others
 	hideBitCoin();
 };
 	
 // Event handler for Payment Information
 $('#payment').change( function () {
-	var selectedVal = $('#payment').find(':selected').val();
+	var selectedVal = $('#payment').find(':selected').val(); // get selected payment method
 	
-	if (selectedVal === 'credit card') {
+	if (selectedVal === 'credit card') {	// if credit card selected show credit card hide the others
 		hidePayPal();
 		hideBitCoin();
 		showCreditCard();
-	} else if (selectedVal === 'paypal') {
+	} else if (selectedVal === 'paypal') {	// if paypal selected show paypal hide the others
 		hideCreditCard();
 		hideBitCoin();
 		showPayPal();
-	} else if (selectedVal === 'bitcoin') {
+	} else if (selectedVal === 'bitcoin') {	// if bitcoin selected show bitcoin hide the others
 		hideCreditCard();
 		hidePayPal();
 		showBitCoin();
-	} else {
+	} else {								// if no payment method selected hide all of them
 		hideCreditCard();
 		hidePayPal();
 		hideBitCoin();
@@ -426,6 +428,7 @@ $('.activities').on('click', 'input[type="checkbox"]', function() {
 /*****************************************
 * On load
 ******************************************/
+
 $('#name').focus();		// switch focus to first input
 hideOtherTitle();		// hide some things
 hideColorsSelect();
