@@ -6,10 +6,12 @@
 * Display error messages
 ******************************************/
 
+// remove all error messages
 var clearDisplayErrors = function() {
 	$('p.error').remove();
 };
 
+// brute force the display of each error message
 var displayCVVError = function() {
 	var $newP = $('<p class="error">CVV Required</p>');
 	
@@ -114,10 +116,10 @@ var isCCNumberError = function () {
 		return true;
 	}
 	
-	step1Array = $('#cc-num').val().split(''); // convert the input text string to an array of numbers
+	step1Array = $('#cc-num').val().split(''); // convert the input text string to an array of numbers (still text)
 	step2Array = step1Array.reverse();		   // reverse the array, this is just conceptually easier than counting down
 	step3Array = verifyCCStep3(step2Array);    // multiply even numbers by 2, subtract 9 from numbers >= 10
-	step4 = verifyCCStep4(step3Array);		   // some the result
+	step4 = verifyCCStep4(step3Array);		   // sum the results for the entire array
 	step5 = step4 % 10;						   // get the sum modulus 10
 	
 	if (step5 !== 0) {						   // if the result is 0 it passed
