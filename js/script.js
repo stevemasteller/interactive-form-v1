@@ -20,7 +20,7 @@ var clearDisplayErrors = function() {
 var displayCVVError = function() {
 	$('#cvv').attr('style', 'background: #faffbd');
 	
-	var $newP = $('<p class="error">CVV Required<p>');
+	var $newP = $('<p class="error">CVV Required</p>');
 	
 	$('#cvv').after($newP);
 };
@@ -28,7 +28,7 @@ var displayCVVError = function() {
 var displayZipCodeError = function() {
 	$('#zip').attr('style', 'background: #faffbd');
 	
-	var $newP = $('<p class="error">Required ##### or #####-####<p>');
+	var $newP = $('<p class="error">Required ##### or #####-####</p>');
 	
 	$('#zip').after($newP);
 };
@@ -36,7 +36,7 @@ var displayZipCodeError = function() {
 var displayCCNumberError = function() {
 	$('#cc-num').attr('style', 'background: #faffbd');
 	
-	var $newP = $('<p class="error">Credit card number invalid<p>');
+	var $newP = $('<p class="error">Credit card number invalid</p>');
 	
 	$('#cc-num').after($newP);
 };
@@ -44,7 +44,7 @@ var displayCCNumberError = function() {
 var displayPaymentMethodError = function() {
 	$('#payment').attr('style', 'background: #faffbd');
 	
-	var $newP = $('<p class="error">Select payment method<p>');
+	var $newP = $('<p class="error">Select payment method</p>');
 	
 	$('#payment').after($newP);
 };
@@ -52,7 +52,7 @@ var displayPaymentMethodError = function() {
 var displayNameError = function() {
 	$('#name').attr('style', 'background: #faffbd');
 	
-	var $newP = $('<p class="error">Name required<p>');
+	var $newP = $('<p class="error">Name required</p>');
 	
 	$('#name').after($newP);
 };
@@ -60,7 +60,7 @@ var displayNameError = function() {
 var displayEmailError = function() {
 	$('#mail').attr('style', 'background: #faffbd');
 	
-	var $newP = $('<p class="error">Valid email required<p>');
+	var $newP = $('<p class="error">Valid email required</p>');
 	
 	$('#mail').after($newP);	
 };
@@ -68,7 +68,7 @@ var displayEmailError = function() {
 var displayActivityError = function() {
 	$('.activities').find('input[type="checkbox"]').attr('style','background: #faffbd');
 
-	var $newP = $('<p class="error">Select at least one activity<p>');
+	var $newP = $('<p class="error">Select at least one activity</p>');
 	
 	$('.activities').find('legend').after($newP);
 };
@@ -147,7 +147,7 @@ var isZipCodeError = function() {
 
 var isCVVError = function() {
 	
-    var verificationCode = $('#zip').val();
+    var verificationCode = $('#cvv').val();
     var verificationCodeRegex = /^\d{3}$/;
 
     if (!verificationCodeRegex.test(verificationCode))
@@ -254,19 +254,19 @@ var showCreditCard = function() {
 };
 
 var hidePayPal = function() {
-	$("#payment").parents().find('p').first().hide();
+	$("#payment").parents().find('p:not(.error)').first().hide();
 };
 
 var showPayPal = function() {
-	$("#payment").parents().find('p').first().show();
+	$("#payment").parents().find('p:not(.error)').first().show();
 };
 
 var hideBitCoin = function() {
-	$("#payment").parents().find('p').last().hide();	
+	$("#payment").parents().find('p:not(.error)').last().hide();	
 };
 
 var showBitCoin = function() {
-	$("#payment").parents().find('p').last().show();	
+	$("#payment").parents().find('p:not(.error)').last().show();	
 };
 
 var selectCreditCard = function() {
