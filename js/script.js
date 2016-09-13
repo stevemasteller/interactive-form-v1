@@ -1,4 +1,41 @@
+/***********************************************************
+*
+*  Interactive Form
+*
+*  Adds user interactivity to a conference signup form in
+*  an unobtrusive manner.
+*
+*  Author: Steve Masteller
+*  Email: stevermasteller@gmail.com
+*
+*  Reserved Classes:
+*		error
+*
+************************************************************/
 
+// 
+//	NOTE: all constants and global variables initialized in 
+//		  the data.js file.
+//
+
+//
+// Constants
+//
+
+//const MAIN_CONFERENCE 		= '0';	// Numeric constants identifying each activity.
+//const FRAMEWORKS_WORKSHOP	    = '1';  // Must correspond to index in activitesArray and order
+//const LIBRARIES_WORKSHOP	    = '2';	// displayed on form.
+//const EXPRESS_WORKSHOP		= '3';
+//const NODE_JS_WORKSHOP		= '4';
+//const BUILD_TOOLS_WORKSHOP	= '5';
+//const NPM_WORKSHOP 			= '6';
+
+//
+// Global variables
+//
+
+// global array of objects identifying activity conflicts and prices
+// var activitiesArray = [];
 
 
 
@@ -434,6 +471,11 @@ var clearActivities = function() {
 
 // cycle through the activitiesArray initialized in the data file
 //		for each checked activity cycle through conflicts and disable them
+//
+//	Note: this function can handle multiple conflicts for each activity. I
+//		  originally overlooked that some activities were on different days.
+//		  Once I noticed, it already worked for multiple conflicts so I just
+//		  left it in.
 var disableActivities = function() {
 	var total = 0;				// running cost total
 	var isChecked;				// indicates selected activity

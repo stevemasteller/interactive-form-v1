@@ -2,7 +2,7 @@
 // Initialize activities array
 //		shows all conflicts
 //		and cost of each activity
-const MAIN_CONFERENCE 		= '0';
+const MAIN_CONFERENCE 		= '0';	// numeric constants identifying each activity
 const FRAMEWORKS_WORKSHOP	= '1';
 const LIBRARIES_WORKSHOP	= '2';
 const EXPRESS_WORKSHOP		= '3';
