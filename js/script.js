@@ -6,68 +6,46 @@
 *
 ******************************************/
 var clearDisplayErrors = function() {
-	$('#cvv').attr('style', 'background: #c1deeb');
-	$('#zip').attr('style', 'background: #c1deeb');
-	$('#cc-num').attr('style', 'background: #c1deeb');
-	$('#payment').attr('style', 'background: #c1deeb');
-	$('#name').attr('style', 'background: #c1deeb');
-	$('#mail').attr('style', 'background: #c1deeb');
-	$('.activities').find('input[type="checkbox"]').attr('style','background: #c1deeb');
-	
 	$('p.error').remove();
 };
 
 var displayCVVError = function() {
-	$('#cvv').attr('style', 'background: #faffbd');
-	
 	var $newP = $('<p class="error">CVV Required</p>');
 	
 	$('#cvv').after($newP);
 };
 
 var displayZipCodeError = function() {
-	$('#zip').attr('style', 'background: #faffbd');
-	
 	var $newP = $('<p class="error">Required ##### or #####-####</p>');
 	
 	$('#zip').after($newP);
 };
 
 var displayCCNumberError = function() {
-	$('#cc-num').attr('style', 'background: #faffbd');
-	
 	var $newP = $('<p class="error">Credit card number invalid</p>');
 	
 	$('#cc-num').after($newP);
 };
 
 var displayPaymentMethodError = function() {
-	$('#payment').attr('style', 'background: #faffbd');
-	
 	var $newP = $('<p class="error">Select payment method</p>');
 	
 	$('#payment').after($newP);
 };
 
 var displayNameError = function() {
-	$('#name').attr('style', 'background: #faffbd');
-	
 	var $newP = $('<p class="error">Name required</p>');
 	
 	$('#name').after($newP);
 };
 
 var displayEmailError = function() {
-	$('#mail').attr('style', 'background: #faffbd');
-	
 	var $newP = $('<p class="error">Valid email required</p>');
 	
 	$('#mail').after($newP);	
 };
 
 var displayActivityError = function() {
-	$('.activities').find('input[type="checkbox"]').attr('style','background: #faffbd');
-
 	var $newP = $('<p class="error">Select at least one activity</p>');
 	
 	$('.activities').find('legend').after($newP);
