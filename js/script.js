@@ -330,7 +330,7 @@ $('#design').change( function () {
 });
 
 /*****************************************
-*
+* Job Role Selector Section
 ******************************************/
 
 var hideOtherTitle = function() {
@@ -345,7 +345,7 @@ var showOtherTitle = function() {
 $('#title').change( function () {
 	var selectedVal = $('#title').find(':selected').val();
 	
-	if (selectedVal === 'other') {
+	if (selectedVal === 'other') {		// other is special it displays an alternate input for title
 		showOtherTitle();
 	} else {
 		hideOtherTitle();
