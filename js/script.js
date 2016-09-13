@@ -63,7 +63,7 @@ var displayEmailError = function() {
 	var $newP = $('<p class="error">Valid email required<p>');
 	
 	$('#mail').after($newP);	
-}
+};
 
 var displayActivityError = function() {
 	$('.activities').find('input[type="checkbox"]').attr('style','background: #faffbd');
@@ -162,16 +162,17 @@ var isCVVError = function() {
 var isActivityCountError = function() {
 	
 	var activitiesCount = 0;
+	var isChecked;
 	
 	for (var i = 0; i < activitiesArray.length; i++) {
-		var isChecked = $('.activities').find('input[type="checkbox"]').eq(i).prop('checked');
+		isChecked = $('.activities').find('input[type="checkbox"]').eq(i).prop('checked');
 		
 		if (isChecked) {
 			activitiesCount++;
 		}
 	}	
 
-	if (activitiesCount.length > 0) {
+	if (activitiesCount > 0) {
 		return false;
 	} else {
 		displayActivityError();
@@ -215,7 +216,7 @@ var isPaymentMethodError = function() {
 	} else {
 		return false;
 	}
-}
+};
 
 $('form').on('click', 'button[type="submit"]', function($event) {
 	
@@ -404,16 +405,18 @@ var clearActivities = function() {
 
 var disableActivities = function() {
 	var total = 0;
+	var isChecked;
+    var conflictingActivity;
 	
 	// disable select checkboxes depending on which other boxes are checked
 	for (var j = 0; j < activitiesArray.length; j++) {
-		var isChecked = $('.activities').find('input[type="checkbox"]').eq(j).prop('checked');
+		isChecked = $('.activities').find('input[type="checkbox"]').eq(j).prop('checked');
 		
 		if (isChecked) {
 			total += activitiesArray[j].cost;
 			
 			for (var i = 0; i < activitiesArray[j].conflicts.length; i++) {
-				var conflictingActivity = activitiesArray[j].conflicts[i];
+				conflictingActivity = activitiesArray[j].conflicts[i];
 				
 				$('.activities').find('input').eq(conflictingActivity).prop('disabled', true);
 				$('.activities').find('label').eq(conflictingActivity).attr('style', 'color: rgb(84, 84, 84)');
