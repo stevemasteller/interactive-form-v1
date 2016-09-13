@@ -353,13 +353,15 @@ $('#title').change( function () {
 });
 	
 /*****************************************
-*
+* Register for Activities Section
 ******************************************/
 
+// remove display of total from markup
 var removeTotalMarkup = function() {
 	$('.activities').find('H4').remove();
 };
 
+// adds an <h4> for the display of the total activity cost
 var addTotalMarkup = function(total) {
 	
 	// display total
@@ -370,6 +372,7 @@ var addTotalMarkup = function(total) {
 	}
 };
 
+// removes all viduals for conflicting activities 
 var clearActivities = function() {
 	
 	// Set disabled and color of all inputs to enabled 
@@ -381,42 +384,47 @@ var clearActivities = function() {
 	removeTotalMarkup();
 };
 
+// cycle through the activitiesArray initialized in the data file
+//		for each checked activity cycle through conflicts and disable them
 var disableActivities = function() {
-	var total = 0;
-	var isChecked;
-    var conflictingActivity;
+	var total = 0;				// running cost total
+	var isChecked;				// indicates selected activity
+    var conflictingActivity;	// single conflicting activity fetched from the activitiesArray
 	
-	// disable select checkboxes depending on which other boxes are checked
+	// cycle through all activities
 	for (var j = 0; j < activitiesArray.length; j++) {
 		isChecked = $('.activities').find('input[type="checkbox"]').eq(j).prop('checked');
 		
+		// activity is selected
 		if (isChecked) {
-			total += activitiesArray[j].cost;
+			total += activitiesArray[j].cost;	// add cost to total
 			
+			// cycle through all conflicting activities
 			for (var i = 0; i < activitiesArray[j].conflicts.length; i++) {
-				conflictingActivity = activitiesArray[j].conflicts[i];
+				conflictingActivity = activitiesArray[j].conflicts[i];	// fetch a single conflict
 				
+				// visually show conflicting activity
 				$('.activities').find('input').eq(conflictingActivity).prop('disabled', true);
 				$('.activities').find('label').eq(conflictingActivity).attr('style', 'color: rgb(84, 84, 84)');
 			}
 		}
 	}	
 	
-	addTotalMarkup(total);
+	addTotalMarkup(total); // display total
 };
 
 // Event handler for Activities check boxes
 $('.activities').on('click', 'input[type="checkbox"]', function() {
-	clearActivities();
-	disableActivities();
+	clearActivities();		// enable all activities
+	disableActivities();	// disable activities based on conflicts, also adds total
 });
 
 /*****************************************
 * On load
 ******************************************/
-$('#name').focus();
-hideOtherTitle();
+$('#name').focus();		// switch focus to first input
+hideOtherTitle();		// hide some things
 hideColorsSelect();
 hidePayPal();
 hideBitCoin();
-selectCreditCard();
+selectCreditCard();		// initialize payment method to credit card

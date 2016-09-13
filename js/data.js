@@ -1,3 +1,7 @@
+
+// Initialize activities array
+//		shows all conflicts
+//		and cost of each activity
 const MAIN_CONFERENCE 		= '0';
 const FRAMEWORKS_WORKSHOP	= '1';
 const LIBRARIES_WORKSHOP	= '2';
