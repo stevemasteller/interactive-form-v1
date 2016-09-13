@@ -279,53 +279,57 @@ $('#payment').change( function () {
 });
 
 /*****************************************
-*
+* T-Shirt Section
 ******************************************/
 
+// brute force selection of Java Script Puns theme Colors
 var displayJsPunsColors = function() {
-	$('#color').children(':selected').prop('selected', false);
-	$('#color').children('option').eq(0).prop('selected', true);
+	$('#color').children(':selected').prop('selected', false);		// remove selected option
+	$('#color').children('option').eq(0).prop('selected', true);	// select first option in JS Puns theme colors
 	
-	$('#color').children('option').eq(0).removeAttr('style');
+	$('#color').children('option').eq(0).removeAttr('style');	// display JS Puns theme colors
 	$('#color').children('option').eq(1).removeAttr('style');
 	$('#color').children('option').eq(2).removeAttr('style');
-	$('#color').children('option').eq(3).attr('style', 'display: none');
+	$('#color').children('option').eq(3).attr('style', 'display: none');	// hide I heart JS theme colors
 	$('#color').children('option').eq(4).attr('style', 'display: none');
 	$('#color').children('option').eq(5).attr('style', 'display: none');
 };
 
+// brute force selection of I heart Java Script theme colors
 var displayHeartJsColors = function() {
-	$('#color').children(':selected').prop('selected', false);
-	$('#color').children('option').eq(3).prop('selected', true);
+	$('#color').children(':selected').prop('selected', false);		// remove selected option
+	$('#color').children('option').eq(3).prop('selected', true);	// select first option in I heart JS theme
 	
-	$('#color').children('option').eq(0).attr('style', 'display: none');
+	$('#color').children('option').eq(0).attr('style', 'display: none');	// hide JS Puns theme colors
 	$('#color').children('option').eq(1).attr('style', 'display: none');
 	$('#color').children('option').eq(2).attr('style', 'display: none');
-	$('#color').children('option').eq(3).removeAttr('style');
+	$('#color').children('option').eq(3).removeAttr('style');	// display I heart JS theme colors
 	$('#color').children('option').eq(4).removeAttr('style');
 	$('#color').children('option').eq(5).removeAttr('style');
 };
 
+// Hide the colors selector
 var hideColorsSelect = function() {
 	$('#colors-js-puns').children().hide();
 };
 
+// Show the colors selector
 var showColorsSelect = function() {
 	$('#colors-js-puns').children().show();
 };
 
 // Event handler for T-Shirt design select element
 $('#design').change( function () {
-	var selectedVal = $('#design').find(':selected').val();
+	var selectedVal = $('#design').find(':selected').val();	// find selected theme
 	
-	if (selectedVal === 'js puns') {
-		displayJsPunsColors();
-		showColorsSelect();
-	} else if (selectedVal === 'heart js') {
-		displayHeartJsColors();
-		showColorsSelect();
+	if (selectedVal === 'js puns') {			// if Js Puns theme display
+		displayJsPunsColors();						// js puns colors
+		showColorsSelect();							// colors selector
+	} else if (selectedVal === 'heart js') {	// if I heart js theme display
+		displayHeartJsColors();						// i heart js colors
+		showColorsSelect();							// colors selector
 	} else {
-		hideColorsSelect();
+		hideColorsSelect();	// if no theme selected hide colors selector
 	}
 });
 
